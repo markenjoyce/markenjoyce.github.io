@@ -1,756 +1,156 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#09090f">
-<meta name="description" content="markenjoyce — разработчик Telegram-ботов и современных сайтов.">
+<meta name="description" content="markenjoyce — разработка Telegram-ботов и современных веб-проектов.">
 <title>markenjoyce | Developer Portfolio</title>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-:root {
-    --bg: #09090f;
-    --card: #11111b;
-    --purple: #9270ff;
-    --purple-light: #b49cff;
-    --text: #f4f2fa;
-    --muted: #92909f;
-    --border: rgba(255,255,255,.09);
+:root{--bg:#09090f;--card:#11111b;--purple:#9270ff;--purple-light:#b49cff;--text:#f4f2fa;--muted:#92909f;--border:rgba(255,255,255,.09)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+.container{max-width:1120px;width:90%;margin:auto}
+header{position:fixed;top:0;width:100%;z-index:100;background:rgba(9,9,15,.88);backdrop-filter:blur(15px);border-bottom:1px solid var(--border)}
+nav{height:76px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:23px;font-weight:800;letter-spacing:-1px}.logo span{color:var(--purple)}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{color:var(--muted);font-size:13px;transition:.3s}.nav-links a:hover{color:var(--purple-light)}
+.menu-btn{display:none;background:none;border:0;color:white;font-size:25px;cursor:pointer}
+.hero{min-height:720px;display:flex;align-items:center;position:relative;padding-top:100px;overflow:hidden}
+.glow{position:absolute;width:500px;height:500px;background:#7145d8;opacity:.16;filter:blur(150px);border-radius:50%;right:-100px;top:100px;pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:750px}
+.tag{display:inline-block;color:var(--purple-light);border:1px solid rgba(146,112,255,.3);background:rgba(146,112,255,.08);border-radius:30px;padding:9px 16px;font-size:12px;margin-bottom:30px}
+.hero h1{font-size:clamp(48px,8vw,86px);line-height:1.08;letter-spacing:-5px;margin-bottom:25px}
+.gradient{background:linear-gradient(90deg,#a88aff,#7048e8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:16px;line-height:1.9;max-width:560px}
+.buttons{display:flex;gap:14px;margin-top:35px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 21px;border-radius:10px;font-size:13px;font-weight:600;transition:.3s;cursor:pointer}
+.btn-primary{background:var(--purple);color:white}.btn-primary:hover{background:#a58aff;transform:translateY(-3px);box-shadow:0 10px 30px rgba(146,112,255,.25)}
+.btn-outline{border:1px solid var(--border);color:white}.btn-outline:hover{border-color:var(--purple);color:var(--purple-light)}
+section{padding:100px 0;scroll-margin-top:75px}
+.section-label{color:var(--purple-light);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;margin-bottom:15px}
+.section-title{font-size:clamp(30px,5vw,43px);letter-spacing:-2px;margin-bottom:18px}
+.section-description{color:var(--muted);line-height:1.8;max-width:600px;font-size:14px}
+.about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:center}
+.about-text p{color:var(--muted);line-height:2;font-size:14px;margin-top:20px}
+.about-card{background:linear-gradient(145deg,#171526,#101019);border:1px solid var(--border);border-radius:18px;padding:35px}
+.about-card .big{font-size:54px;font-weight:800;color:var(--purple-light)}
+.about-card p{color:var(--muted);font-size:13px;margin-top:10px;line-height:1.8}
+.projects{background:#0c0c14}
+.project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:42px}
+.project-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;transition:.3s;overflow:hidden}
+.project-card:hover{transform:translateY(-5px);border-color:rgba(146,112,255,.5)}
+.project-icon{width:48px;height:48px;border-radius:13px;background:rgba(146,112,255,.13);display:grid;place-items:center;font-size:23px;margin-bottom:18px}
+.project-card h3{font-size:19px;margin-bottom:12px}
+.project-card p{color:var(--muted);font-size:13px;line-height:1.8}
+.project-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.project-tags span{font-size:10px;color:var(--purple-light);background:rgba(146,112,255,.1);padding:7px 10px;border-radius:6px}
+.project-gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 18px}
+.project-gallery a{display:block;overflow:hidden;border-radius:11px;border:1px solid var(--border);background:#08080d}
+.project-gallery img{display:block;width:100%;height:260px;object-fit:contain;object-position:center;background:#08080d;transition:transform .35s}
+.project-gallery a:hover img{transform:scale(1.035)}
+.project-gallery .wide-shot{grid-column:1/-1}
+.project-gallery .wide-shot img{height:290px;object-fit:contain;background:#050508}
+.project-gallery .admin-shot img{height:260px;object-fit:contain;background:#08080d}
+.project-gallery .bot-shot img{height:360px;object-fit:contain;background:#08080d}
+.portfolio-preview{grid-column:1/-1;min-height:220px;border:1px solid var(--border);border-radius:11px;background:radial-gradient(circle at 80% 20%,rgba(146,112,255,.28),transparent 40%),linear-gradient(145deg,#171526,#09090f);padding:25px;display:flex;flex-direction:column;justify-content:center;gap:12px;overflow:hidden}
+.portfolio-preview .mini-tag{font-size:10px;letter-spacing:2px;color:var(--purple-light)}
+.portfolio-preview strong{font-size:clamp(22px,3vw,34px);letter-spacing:-1px}
+.portfolio-preview span{font-size:12px;color:var(--muted)}
+.project-link{margin-top:20px}
+.skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:40px}
+.skill{background:var(--card);border:1px solid var(--border);padding:25px 15px;border-radius:13px;text-align:center;transition:.3s}
+.skill:hover{border-color:var(--purple);transform:translateY(-4px)}
+.skill .symbol{font-size:28px;margin-bottom:13px}.skill h3{font-size:13px;margin-bottom:7px}.skill p{color:var(--muted);font-size:10px}
+.contacts{background:#0c0c14;text-align:center}.contacts .section-description{margin:auto}
+.contact-box{margin:35px auto 0;padding:35px;max-width:550px;border:1px solid var(--border);background:var(--card);border-radius:16px}
+.contact-box p{color:var(--muted);font-size:13px;line-height:1.8;margin-bottom:25px}
+.contact-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+footer{border-top:1px solid var(--border);padding:27px 0}
+.footer-content{display:flex;justify-content:space-between;gap:15px;color:var(--muted);font-size:11px}
+.reveal{opacity:0;transform:translateY(25px);transition:.7s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:750px){
+.nav-links{display:none;position:absolute;top:76px;left:0;width:100%;background:#101019;padding:25px;flex-direction:column;border-bottom:1px solid var(--border)}
+.nav-links.active{display:flex}.menu-btn{display:block}.hero{min-height:650px}.hero h1{letter-spacing:-3px}
+.about-grid,.project-grid{grid-template-columns:1fr}.skills-grid{grid-template-columns:repeat(2,1fr)}
+section{padding:75px 0}.footer-content{flex-direction:column;text-align:center}
+.project-gallery img{height:220px}.project-gallery .wide-shot img{height:240px}.project-gallery .bot-shot img{height:320px}
 }
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.container {
-    max-width: 1120px;
-    width: 90%;
-    margin: auto;
-}
-
-/* NAVIGATION */
-
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-    background: rgba(9,9,15,.88);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--border);
-}
-
-nav {
-    height: 76px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo {
-    font-size: 23px;
-    font-weight: 800;
-    letter-spacing: -1px;
-}
-
-.logo span {
-    color: var(--purple);
-}
-
-.nav-links {
-    display: flex;
-    gap: 32px;
-    align-items: center;
-}
-
-.nav-links a {
-    color: var(--muted);
-    font-size: 13px;
-    transition: .3s;
-}
-
-.nav-links a:hover {
-    color: var(--purple-light);
-}
-
-.menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 25px;
-    cursor: pointer;
-}
-
-/* HERO */
-
-.hero {
-    min-height: 720px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding-top: 100px;
-    overflow: hidden;
-}
-
-.glow {
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: #7145d8;
-    opacity: .16;
-    filter: blur(150px);
-    border-radius: 50%;
-    right: -100px;
-    top: 100px;
-    pointer-events: none;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 750px;
-}
-
-.tag {
-    display: inline-block;
-    color: var(--purple-light);
-    border: 1px solid rgba(146,112,255,.3);
-    background: rgba(146,112,255,.08);
-    border-radius: 30px;
-    padding: 9px 16px;
-    font-size: 12px;
-    margin-bottom: 30px;
-}
-
-.hero h1 {
-    font-size: clamp(48px, 8vw, 86px);
-    line-height: 1.08;
-    letter-spacing: -5px;
-    margin-bottom: 25px;
-}
-
-.gradient {
-    background: linear-gradient(90deg, #a88aff, #7048e8);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.hero p {
-    color: var(--muted);
-    font-size: 16px;
-    line-height: 1.9;
-    max-width: 560px;
-}
-
-.buttons {
-    display: flex;
-    gap: 14px;
-    margin-top: 35px;
-    flex-wrap: wrap;
-}
-
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 15px 24px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    transition: .3s;
-    cursor: pointer;
-}
-
-.btn-primary {
-    background: var(--purple);
-    color: white;
-}
-
-.btn-primary:hover {
-    background: #a58aff;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(146,112,255,.25);
-}
-
-.btn-outline {
-    border: 1px solid var(--border);
-    color: white;
-}
-
-.btn-outline:hover {
-    border-color: var(--purple);
-    color: var(--purple-light);
-}
-
-/* SECTIONS */
-
-section {
-    padding: 105px 0;
-    scroll-margin-top: 75px;
-}
-
-.section-label {
-    color: var(--purple-light);
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-bottom: 15px;
-}
-
-.section-title {
-    font-size: clamp(30px, 5vw, 43px);
-    letter-spacing: -2px;
-    margin-bottom: 18px;
-}
-
-.section-description {
-    color: var(--muted);
-    line-height: 1.8;
-    max-width: 600px;
-    font-size: 14px;
-}
-
-/* ABOUT */
-
-.about-grid {
-    display: grid;
-    grid-template-columns: 1.2fr .8fr;
-    gap: 50px;
-    align-items: center;
-}
-
-.about-text p {
-    color: var(--muted);
-    line-height: 2;
-    font-size: 14px;
-    margin-top: 20px;
-}
-
-.about-card {
-    background: linear-gradient(145deg, #171526, #101019);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 35px;
-}
-
-.about-card .big {
-    font-size: 54px;
-    font-weight: 800;
-    color: var(--purple-light);
-}
-
-.about-card p {
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 10px;
-    line-height: 1.8;
-}
-
-/* PROJECTS */
-
-.projects {
-    background: #0c0c14;
-}
-
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
-    margin-top: 45px;
-}
-
-.project-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 30px;
-    transition: .3s;
-}
-
-.project-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(146,112,255,.5);
-}
-
-.project-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 13px;
-    background: rgba(146,112,255,.13);
-    display: grid;
-    place-items: center;
-    font-size: 23px;
-    margin-bottom: 24px;
-}
-
-.project-card h3 {
-    font-size: 19px;
-    margin-bottom: 12px;
-}
-
-.project-card p {
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.8;
-}
-
-.project-tags {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 22px;
-}
-
-.project-tags span {
-    font-size: 10px;
-    color: var(--purple-light);
-    background: rgba(146,112,255,.1);
-    padding: 7px 10px;
-    border-radius: 6px;
-}
-
-.project-link {
-    margin-top: 25px;
-}
-
-/* SKILLS */
-
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin-top: 40px;
-}
-
-.skill {
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 25px 15px;
-    border-radius: 13px;
-    text-align: center;
-    transition: .3s;
-}
-
-.skill:hover {
-    border-color: var(--purple);
-    transform: translateY(-4px);
-}
-
-.skill .symbol {
-    font-size: 28px;
-    margin-bottom: 13px;
-}
-
-.skill h3 {
-    font-size: 13px;
-    margin-bottom: 7px;
-}
-
-.skill p {
-    color: var(--muted);
-    font-size: 10px;
-}
-
-/* CONTACTS */
-
-.contacts {
-    background: #0c0c14;
-    text-align: center;
-}
-
-.contacts .section-description {
-    margin: auto;
-}
-
-.contact-box {
-    margin: 35px auto 0;
-    padding: 35px;
-    max-width: 550px;
-    border: 1px solid var(--border);
-    background: var(--card);
-    border-radius: 16px;
-}
-
-.contact-box p {
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.8;
-    margin-bottom: 25px;
-}
-
-.contact-buttons {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-/* FOOTER */
-
-footer {
-    border-top: 1px solid var(--border);
-    padding: 27px 0;
-}
-
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    color: var(--muted);
-    font-size: 11px;
-}
-
-/* ANIMATIONS */
-
-.reveal {
-    opacity: 0;
-    transform: translateY(25px);
-    transition: .7s ease;
-}
-
-.reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* MOBILE */
-
-@media(max-width: 750px) {
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 76px;
-        left: 0;
-        width: 100%;
-        background: #101019;
-        padding: 25px;
-        flex-direction: column;
-        border-bottom: 1px solid var(--border);
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .menu-btn {
-        display: block;
-    }
-
-    .hero {
-        min-height: 650px;
-    }
-
-    .hero h1 {
-        letter-spacing: -3px;
-    }
-
-    .about-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .project-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    section {
-        padding: 75px 0;
-    }
-
-    .footer-content {
-        flex-direction: column;
-        text-align: center;
-    }
-}
+@media(max-width:420px){.project-gallery{grid-template-columns:1fr}.project-gallery .wide-shot{grid-column:auto}.project-gallery img{height:260px}}
 </style>
 </head>
-
 <body>
-
-<header>
-    <div class="container">
-        <nav>
-            <a href="#home" class="logo">markenjoyce<span>.</span></a>
-
-            <div class="nav-links" id="navLinks">
-                <a href="#home">Главная</a>
-                <a href="#about">Обо мне</a>
-                <a href="#projects">Проекты</a>
-                <a href="#skills">Навыки</a>
-                <a href="#contacts">Контакты</a>
-            </div>
-
-            <button class="menu-btn" id="menuBtn" aria-label="Открыть меню">☰</button>
-        </nav>
-    </div>
-</header>
-
+<header><div class="container"><nav>
+<a href="#home" class="logo">markenjoyce<span>.</span></a>
+<div class="nav-links" id="navLinks">
+<a href="#home">Главная</a><a href="#about">Обо мне</a><a href="#projects">Проекты</a><a href="#skills">Навыки</a><a href="#contacts">Контакты</a>
+</div>
+<button class="menu-btn" id="menuBtn" aria-label="Открыть меню">☰</button>
+</nav></div></header>
 <main>
-
-<!-- HERO -->
-<section class="hero" id="home">
-    <div class="glow"></div>
-    <div class="container">
-        <div class="hero-content reveal">
-            <div class="tag">✦ DEVELOPER PORTFOLIO</div>
-
-            <h1>
-                Привет, я<br>
-                <span class="gradient">markenjoyce</span>
-            </h1>
-
-            <p>
-                Разрабатываю цифровые решения, Telegram-ботов
-                и современные веб-проекты. Превращаю идеи
-                в работающие продукты.
-            </p>
-
-            <div class="buttons">
-                <a href="#projects" class="btn btn-primary">Мои проекты ↗</a>
-                <a href="#contacts" class="btn btn-outline">Связаться со мной</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-    <div class="container about-grid">
-        <div class="about-text reveal">
-            <div class="section-label">01 / ABOUT</div>
-            <h2 class="section-title">Немного обо мне</h2>
-            <p>
-                Я разработчик, который занимается созданием
-                программных решений и автоматизацией
-                различных процессов.
-            </p>
-            <p>
-                Моя цель — создавать удобные, функциональные
-                и качественные продукты, которые решают реальные
-                задачи людей и бизнеса.
-            </p>
-        </div>
-
-        <div class="about-card reveal">
-            <div class="big">01<span class="gradient">.</span></div>
-            <h3>Мой подход</h3>
-            <p>
-                Постоянное развитие, внимание к деталям
-                и стремление сделать каждый проект лучше.
-            </p>
-        </div>
-    </div>
-</section>
-
-<!-- PROJECTS -->
-<section class="projects" id="projects">
-    <div class="container">
-        <div class="reveal">
-            <div class="section-label">02 / PORTFOLIO</div>
-            <h2 class="section-title">Мои проекты</h2>
-            <p class="section-description">
-                Некоторые проекты, над которыми я работал.
-            </p>
-        </div>
-
-        <div class="project-grid">
-
-            <article class="project-card reveal">
-                <div class="project-icon">🤖</div>
-                <h3>Telegram Giveaway Bot</h3>
-                <p>
-                    Telegram-бот для проведения розыгрышей.
-                    Система управления розыгрышами, обработка
-                    заявок и проверка скриншотов через
-                    административную панель.
-                </p>
-
-                <div class="project-tags">
-                    <span>Python</span>
-                    <span>Telegram API</span>
-                    <span>Automation</span>
-                </div>
-
-                <div class="project-link">
-                    <a href="https://t.me/LuckyConcurs_bot"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="btn btn-primary">
-                        Открыть бота ↗
-                    </a>
-                </div>
-            </article>
-
-            <article class="project-card reveal">
-                <div class="project-icon">🌐</div>
-                <h3>Developer Portfolio</h3>
-                <p>
-                    Персональный сайт-портфолио разработчика.
-                    Адаптивный интерфейс, анимации и презентация
-                    проектов и навыков.
-                </p>
-
-                <div class="project-tags">
-                    <span>HTML</span>
-                    <span>CSS</span>
-                    <span>JavaScript</span>
-                </div>
-            </article>
-
-        </div>
-    </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-    <div class="container">
-        <div class="reveal">
-            <div class="section-label">03 / TECHNOLOGIES</div>
-            <h2 class="section-title">Мои технологии</h2>
-            <p class="section-description">
-                Инструменты и языки программирования,
-                которые использую в работе.
-            </p>
-        </div>
-
-        <div class="skills-grid">
-
-            <div class="skill reveal">
-                <div class="symbol">🐍</div>
-                <h3>Python</h3>
-                <p>Программирование</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="symbol">🌐</div>
-                <h3>HTML</h3>
-                <p>Веб-разметка</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="symbol">🎨</div>
-                <h3>CSS</h3>
-                <p>Веб-дизайн</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="symbol">⚡</div>
-                <h3>JavaScript</h3>
-                <p>Интерактивность</p>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- CONTACTS -->
-<section class="contacts" id="contacts">
-    <div class="container reveal">
-        <div class="section-label">04 / CONTACTS</div>
-        <h2 class="section-title">Есть идея проекта?</h2>
-        <p class="section-description">
-            Открыт к интересным предложениям и новым проектам.
-            Давайте обсудим сотрудничество!
-        </p>
-
-        <div class="contact-box">
-            <p>
-                Напишите мне, если хотите обсудить разработку
-                сайта, Telegram-бота или другого цифрового продукта.
-            </p>
-
-            <div class="contact-buttons">
-
-                <a href="https://t.me/markenjoyce"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="btn btn-primary">
-                    Telegram ↗
-                </a>
-
-                <a href="https://vk.ru/markenjoyce"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="btn btn-outline">
-                    ВКонтакте ↗
-                </a>
-
-            </div>
-        </div>
-    </div>
-</section>
-
+<section class="hero" id="home"><div class="glow"></div><div class="container"><div class="hero-content reveal">
+<div class="tag">✦ DEVELOPER PORTFOLIO</div>
+<h1>Привет, я<br><span class="gradient">markenjoyce</span></h1>
+<p>Разрабатываю цифровые решения, Telegram-ботов и современные веб-проекты. Превращаю идеи в работающие продукты.</p>
+<div class="buttons"><a href="#projects" class="btn btn-primary">Мои проекты ↗</a><a href="#contacts" class="btn btn-outline">Связаться со мной</a></div>
+</div></div></section>
+<section id="about"><div class="container about-grid">
+<div class="about-text reveal"><div class="section-label">01 / ABOUT</div><h2 class="section-title">Немного обо мне</h2>
+<p>Я разработчик, который занимается созданием программных решений и автоматизацией различных процессов.</p>
+<p>Моя цель — создавать удобные, функциональные и качественные продукты, которые решают реальные задачи людей и бизнеса.</p></div>
+<div class="about-card reveal"><div class="big">01<span class="gradient">.</span></div><h3>Мой подход</h3><p>Постоянное развитие, внимание к деталям и стремление сделать каждый проект лучше.</p></div>
+</div></section>
+<section class="projects" id="projects"><div class="container">
+<div class="reveal"><div class="section-label">02 / PORTFOLIO</div><h2 class="section-title">Мои проекты</h2><p class="section-description">Реальные разработки и цифровые продукты.</p></div>
+<div class="project-grid">
+<article class="project-card reveal">
+<div class="project-icon">🤖</div><h3>Telegram Giveaway Bot</h3>
+<p>Бот для проведения розыгрышей: создание и управление розыгрышами, работа с участниками, проверка заявок и административные функции.</p>
+<div class="project-gallery">
+<a class="admin-shot" href="giveaway-admin-clean.jpg" target="_blank" rel="noopener noreferrer"><img src="giveaway-admin-clean.jpg" alt="Меню управления Telegram Giveaway Bot"></a>
+<a class="bot-shot" href="lucky-concurs-preview.jpg" target="_blank" rel="noopener noreferrer"><img src="lucky-concurs-preview.jpg" alt="Оформленный профиль Telegram-бота Lucky Concurs"></a>
+</div>
+<div class="project-tags"><span>Python</span><span>Telegram Bot API</span><span>Admin Panel</span></div>
+<div class="project-link"><a href="https://t.me/LuckyConcurs_bot" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Открыть бота ↗</a></div>
+</article>
+<article class="project-card reveal">
+<div class="project-icon">🌐</div><h3>Developer Portfolio</h3>
+<p>Персональный сайт-портфолио разработчика с адаптивным интерфейсом, анимациями и презентацией проектов.</p>
+<div class="project-gallery">
+<div class="portfolio-preview"><div class="mini-tag">DEVELOPER PORTFOLIO</div><strong>Привет, я <span class="gradient">markenjoyce</span></strong><span>Сайты · Telegram-боты · цифровые решения</span></div>
+</div>
+<div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+</article>
+</div></div></section>
+<section id="skills"><div class="container">
+<div class="reveal"><div class="section-label">03 / TECHNOLOGIES</div><h2 class="section-title">Мои технологии</h2><p class="section-description">Инструменты и языки программирования, с которыми я работаю.</p></div>
+<div class="skills-grid">
+<div class="skill reveal"><div class="symbol">🐍</div><h3>Python</h3><p>Программирование</p></div>
+<div class="skill reveal"><div class="symbol">🌐</div><h3>HTML</h3><p>Веб-разметка</p></div>
+<div class="skill reveal"><div class="symbol">🎨</div><h3>CSS</h3><p>Стилизация</p></div>
+<div class="skill reveal"><div class="symbol">⚡</div><h3>JavaScript</h3><p>Интерактивность</p></div>
+</div></div></section>
+<section class="contacts" id="contacts"><div class="container reveal">
+<div class="section-label">04 / CONTACTS</div><h2 class="section-title">Есть идея проекта?</h2>
+<p class="section-description">Открыт к интересным предложениям и новым проектам. Давайте обсудим сотрудничество!</p>
+<div class="contact-box"><p>Напишите мне, если хотите обсудить разработку сайта, Telegram-бота или другого цифрового продукта.</p>
+<div class="contact-buttons">
+<a href="https://t.me/markenjoyce" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Telegram ↗</a>
+<a href="https://vk.ru/markenjoyce" target="_blank" rel="noopener noreferrer" class="btn btn-outline">ВКонтакте ↗</a>
+</div></div></div></section>
 </main>
-
-<footer>
-    <div class="container footer-content">
-        <div>© 2026 markenjoyce. Все права защищены.</div>
-        <div>Designed & Developed by markenjoyce</div>
-    </div>
-</footer>
-
+<footer><div class="container footer-content"><div>© 2026 markenjoyce. Все права защищены.</div><div>Designed &amp; Developed by markenjoyce</div></div></footer>
 <script>
-
-// MOBILE MENU
-
-const menuBtn = document.getElementById('menuBtn');
-const navLinks = document.getElementById('navLinks');
-
-menuBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-});
-
-// CLOSE MENU AFTER CLICK
-
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-    });
-});
-
-// SCROLL ANIMATIONS
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.12 });
-
-document.querySelectorAll('.reveal').forEach(element => {
-    observer.observe(element);
-});
-
+const menuBtn=document.getElementById('menuBtn');
+const navLinks=document.getElementById('navLinks');
+menuBtn.addEventListener('click',()=>navLinks.classList.toggle('active'));
+document.querySelectorAll('.nav-links a').forEach(link=>link.addEventListener('click',()=>navLinks.classList.remove('active')));
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(element=>observer.observe(element));
 </script>
-
 </body>
 </html>
